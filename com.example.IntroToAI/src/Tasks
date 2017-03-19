@@ -1,0 +1,63 @@
+Task 1
+
+A
+The simple agent is rational as it is trying to do the right thing. It tries to maximise goal achievement
+with the given information. If the room is dirty, it sucks, if not, it moves into another room to try and clean that.
+It's only purpose is to do the thing that which it was designed for, keep the rooms clean.
+
+B
+This likely a build on the simple reflex agent and should be a reflex-state agent. As the name suggests, yes it
+should maintain state. Over time it would update state using world knowledge such as, how movement affects the world,
+in this case movement deducts performance points.
+
+C
+Yes, it absolutely makes sense for the agent to learn. It can't just assume a place is clean if squares can get dirty
+after being cleaned, how can it know it's done if it does not know the geography either? It should learn that if it
+has visited a room and cleaned it before, and now it is dirty, that rooms do not stay clean. It would need to make a
+note to return to previously cleaned rooms to check if they are still clean. Perhaps it could also check how long it
+takes for a room to get dirty again so that it does not check prematurely or too late. As for geography, the agent
+will need to explore and attempt to move in all directions in an attempt to try and build up an environment map.
+
+Task 2
+
+P Performance Measure
+E Environment
+A Actuators
+S Sensors
+
+A - Robot soccer player
+P - Goals scored, tackles, intercepts,
+E - Field, boundaries, goals, other players, weather
+A - Accelerator, braking, steering, kicking? what would this be?
+S - Video, GPS, object sensors(players/ball)
+
+B - Internet book-shopping agent
+P - Number of books sold, number of clients, cheapest price
+E - The web?
+A - Searching, purchasing
+S - User input (books required), vendor input (costs)
+
+Task 3
+
+A - Robot soccer player
+Observable
+Stochastic
+Sequential
+Dynamic
+Continuous
+Multi-agent
+
+B - Internet book-shopping agent
+Observable
+Deterministic
+Sequential
+Dynamic
+Continuous
+Multi-agent
+
+Task 4
+
+The utility function maps certain states into a real number in order to give a numerical value to how good
+an action or a sequence of actions will be. The utility function is just a way to measure how good something might be
+not how well the agent is currently performing. The performance measure is how well the agent is currently doing
+based on actions it has already done.

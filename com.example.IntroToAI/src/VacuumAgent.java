@@ -53,6 +53,7 @@ public class VacuumAgent {
         System.out.println(getPerformanceScore(stepsCompleted));
 }
 
+    // Generate some percepts to give to the agent
     public static void getPercepts() {
         percepts.add(currentPercept);
         percepts.add(new Percept(LOCATION.B, STATUS.DIRTY));
@@ -64,6 +65,7 @@ public class VacuumAgent {
 
         ACTION action;
 
+        // Do actions based on current percept
         Percept currentPercept = percepts.get(0);
 
          if (currentPercept.status == STATUS.DIRTY) {
@@ -80,6 +82,7 @@ public class VacuumAgent {
         return action;
     }
 
+    // Get an action based on current location: agent moves clockwise
     public static ACTION getNextDirection(LOCATION location) {
         switch (location) {
             case A: return ACTION.RIGHT;
@@ -90,6 +93,7 @@ public class VacuumAgent {
         return ACTION.NOOP;
     }
 
+    // Give a performance score based on number of steps completed
     public static String getPerformanceScore(int stepsCompleted) {
         if (stepsCompleted < steps) {
             return "VacuumAgent has outdone itself! 10/10";
