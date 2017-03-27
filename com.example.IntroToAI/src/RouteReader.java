@@ -1,3 +1,8 @@
+/*
+ * Copyright (c), Robyn Van Deventer, 2017.
+ * Developed at Swinburne University of Technology.
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -37,16 +42,29 @@ import java.util.List;
  * */
 public class RouteReader {
 
-    static List<String> fileLines = new ArrayList<String>();
-    static List<String> routes = new ArrayList<String>();
+    static ArrayList<String> fileLines = new ArrayList<>();
+    static ArrayList<Route> routes = new ArrayList<>();
 
     public static void main(String[] args) {
-        readFile("C:\\Users\\Xalec\\Documents\\COS30019 Introduction to AI\\Introduction-To-AI\\com.example.IntroToAI\\src\\file.txt");
+        readFile("C:\\Users\\Xalec\\Documents\\COS30019 Introduction to AI\\Introduction-To-AI\\com.example.IntroToAI\\src\\README.txt");
         parseFile();
 
-        for (String route: routes) {
-            System.out.println(route);
+        for (Route route: routes) {
+            System.out.println(route.toString());
         }
+
+        Node fagaras = new Node("Fagaras", null, null);
+        Node arad = new Node("Arad", fagaras, null);
+        Node bucharest = new Node("Bucharest", fagaras, null);
+        fagaras.leftChild = arad;
+        fagaras.rightChild = bucharest;
+
+        BreadthFirstSearch search = new BreadthFirstSearch(fagaras, bucharest);
+        BreadthFirstSearch search1 = new BreadthFirstSearch(arad, fagaras);
+        BreadthFirstSearch search2 = new BreadthFirstSearch(arad, bucharest);
+        search.performSearch();
+        search1.performSearch();
+        search2.performSearch();
     }
 
     public static void readFile(String fileName) {
@@ -80,7 +98,7 @@ public class RouteReader {
             route.setActualDistance(Integer.parseInt(splitLine[2]));
             route.setStraightDistance(Integer.parseInt(splitLine[3]));
 
-            routes.add(route.toString());
+            routes.add(route);
         }
     }
 }

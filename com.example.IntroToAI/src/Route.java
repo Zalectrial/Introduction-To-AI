@@ -1,3 +1,7 @@
+/*
+ * Copyright (c), Robyn Van Deventer, 2017.
+ * Developed at Swinburne University of Technology.
+ */
 
 public class Route {
 
@@ -10,12 +14,24 @@ public class Route {
         this.origin = origin;
     }
 
+    public String getOrigin() {
+        return this.origin;
+    }
+
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    public String getDestination() {
+        return this.destination;
+    }
+
     public void setActualDistance(int actualDistance) {
         this.actualDistance = actualDistance;
+    }
+
+    public int getActualDistance() {
+        return this.actualDistance;
     }
 
     public void setStraightDistance(int straightDistance) {
