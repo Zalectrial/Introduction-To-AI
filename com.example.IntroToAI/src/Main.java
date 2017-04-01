@@ -3,14 +3,19 @@
  * Robyn Van Deventer - Developed at Swinburne University
  */
 
+import Environment.Map;
+import Environment.MapUI;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
 
     static int[] dimensions = new int[2];
-    static ArrayList<Integer> initialState = new ArrayList<>();
-    static ArrayList<Integer> goalState = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> occupiedStates = new ArrayList<>();
+    static int[] initialState = new int[2];
+    static int[] goalState = new int[2];
+    static ArrayList<int[]> occupied = new ArrayList<>();
+     static int[][] occupiedStates;
 
     public static void main(String[] args) {
 
@@ -48,7 +53,7 @@ public class Main {
                 }
 
                 for (int j = 0; j < startPosArray.length; j++) {
-                    initialState.add(Integer.parseInt(startPosArray[j]));
+                    initialState[j] = Integer.parseInt(startPosArray[j]);
                 }
 
             }
@@ -63,7 +68,7 @@ public class Main {
                 }
 
                 for (int j = 0; j < goalPosArray.length; j++) {
-                    goalState.add(Integer.parseInt(goalPosArray[j]));
+                    goalState[j] = Integer.parseInt(goalPosArray[j]);
                 }
 
             }
@@ -77,30 +82,36 @@ public class Main {
                     System.exit(0);
                 }
 
-                ArrayList<Integer> temp = new ArrayList<>();
+                int[] temp = new int[4];
 
                 for (int j = 0; j < occupiedArray.length; j++) {
-                    temp.add(Integer.parseInt(occupiedArray[j]));
+                    temp[j] = Integer.parseInt(occupiedArray[j]);
                 }
-                occupiedStates.add(temp);
+                occupied.add(temp);
             }
+        }
+
+        occupiedStates = new int[occupied.size()][4];
+        for (int i = 0; i < occupied.size(); i++) {
+            occupiedStates[i] = occupied.get(i);
         }
 
         for (int i = 0; i < dimensions.length; i++) {
             System.out.print(dimensions[i]);
         }
 
-        for (int i = 0; i < initialState.size(); i++) {
-            System.out.print(initialState.get(i));
+        for (int i = 0; i < initialState.length; i++) {
+            System.out.print(initialState[i]);
         }
 
-        for (int i = 0; i < goalState.size(); i++) {
-            System.out.print(goalState.get(i));
+        for (int i = 0; i < goalState.length; i++) {
+            System.out.print(goalState[i]);
         }
 
-        for (int i = 0; i < occupiedStates.size(); i++) {
-                System.out.print(occupiedStates.get(i));
+        for (int i = 0; i < occupiedStates.length; i++) {
+                System.out.print(occupiedStates[i]);
         }
 
+        Map map = new Map(initialState, goalState, dimensions, occupiedStates);
     }
 }

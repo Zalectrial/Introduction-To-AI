@@ -5,5 +5,95 @@
 
 package Environment;
 
+import java.util.ArrayList;
+
 public class Map {
+
+    static int[] startPos = new int[2];
+    int[] goalPos = new int[2];
+    int[] dimensions = new int[2];
+    int[][] occupiedPos;
+    ArrayList<Square> allSquares = new ArrayList<>();
+    MapUI map = new MapUI();
+
+    public Map(int[] startPos, int[] goalPos, int[] dimensions, int[][] occupiedPos) {
+
+        this.startPos = startPos;
+        this.goalPos = goalPos;
+        this.dimensions = dimensions;
+        this.occupiedPos = occupiedPos;
+
+        map.setupUserInterface(dimensions[0], dimensions[1]);
+        generateSquares(dimensions);
+        setStartSquare(startPos);
+        setGoalSquare(goalPos);
+        setOccupiedSquares(occupiedPos);
+    }
+
+    public void generateSquares(int[] dimensions) {
+
+        for (int row = 0; row < dimensions[0]; row++) {
+            for (int col = 0; col < dimensions[1]; col++) {
+                Square square = new Square(row, col);
+                allSquares.add(square);
+            }
+        }
+    }
+
+    public void setStartSquare(int[] startPos) {
+
+        for (Square square: allSquares) {
+            if (square.x == startPos[0] && square.y == startPos[1]) {
+                square.startPos = true;
+                map.colorStartPosLabel(square);
+            }
+        }
+    }
+
+    public void setGoalSquare(int[] goalPos) {
+
+        for (Square square: allSquares) {
+            if (square.x == goalPos[0] && square.y == goalPos[1]) {
+                square.goalPos = true;
+                map.colorGoalPosLabel(square);
+            }
+        }
+    }
+
+    public void setOccupiedSquares(int[][] occupiedPos) {
+
+        ArrayList<Square> occupied = new ArrayList<>();
+
+        for (int i = 0; i < occupiedPos.length; i++) {
+            for (int j = 0; j < occupiedPos[i].length; j++) {
+                Square square = new Square(occupiedPos[i][0], occupiedPos[i][1]);
+                occupied.add(square);
+
+                if (occupiedPos[i][2] == 1 && occupiedPos[i][3] == 1) { continue; }
+                else {
+                    for (int k = square.x + 1; k < square.x + occupiedPos[i][2]; k++) {
+                        Square temp = new Square(k, square.y);
+                        occupied.add(temp);
+                    }
+
+                    for (int k = square.y + 1; k < square.y + occupiedPos[i][3]; k++) {
+                        Square temp = new Square(square.x, k);
+                        occupied.add(temp);
+                    }
+                }
+            }
+        }
+
+        for (Square square: allSquares) {
+            for (Square occupiedSquares: occupied) {
+
+                if (square.x == occupiedSquares.x && square.y == occupiedSquares.y) {
+                    square.occupied = true;
+                }
+            }
+
+        }
+
+        map.colorOccupiedLabels(occupied);
+    }
 }
