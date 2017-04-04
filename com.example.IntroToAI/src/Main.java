@@ -96,22 +96,6 @@ public class Main {
             occupiedStates[i] = occupied.get(i);
         }
 
-        for (int i = 0; i < dimensions.length; i++) {
-            System.out.print(dimensions[i]);
-        }
-
-        for (int i = 0; i < initialState.length; i++) {
-            System.out.print(initialState[i]);
-        }
-
-        for (int i = 0; i < goalState.length; i++) {
-            System.out.print(goalState[i]);
-        }
-
-        for (int i = 0; i < occupiedStates.length; i++) {
-                System.out.print(occupiedStates[i]);
-        }
-
         Map map = new Map(initialState, goalState, dimensions, occupiedStates);
     }
 }

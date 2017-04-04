@@ -34,7 +34,7 @@ public class Map {
 
         for (int row = 0; row < dimensions[0]; row++) {
             for (int col = 0; col < dimensions[1]; col++) {
-                Square square = new Square(row, col);
+                Square square = new Square(col, row);
                 allSquares.add(square);
             }
         }
@@ -71,14 +71,11 @@ public class Map {
 
                 if (occupiedPos[i][2] == 1 && occupiedPos[i][3] == 1) { continue; }
                 else {
-                    for (int k = square.x + 1; k < square.x + occupiedPos[i][2]; k++) {
-                        Square temp = new Square(k, square.y);
-                        occupied.add(temp);
-                    }
-
-                    for (int k = square.y + 1; k < square.y + occupiedPos[i][3]; k++) {
-                        Square temp = new Square(square.x, k);
-                        occupied.add(temp);
+                    for (int x = square.x; x < square.x + occupiedPos[i][2]; x++) {
+                        for (int y = square.y; y < square.y + occupiedPos[i][3]; y++) {
+                            Square temp = new Square(x, y);
+                            occupied.add(temp);
+                        }
                     }
                 }
             }

@@ -23,7 +23,7 @@ public class MapUI extends JPanel {
 
         for (int i = 0; i < fieldGrid.length; i++) {
             for (int j = 0; j < fieldGrid[i].length; j++) {
-                fieldGrid[i][j] = createLabel(i, j);
+                fieldGrid[i][j] = createLabel(j, i);
                 panel.add(fieldGrid[i][j]);
             }
         }
