@@ -4,9 +4,9 @@
  */
 
 import Environment.Map;
-import Environment.MapUI;
+import SearchMethods.SearchManager;
+import SearchMethods.SearchMethod;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
@@ -97,5 +97,8 @@ public class Main {
         }
 
         Map map = new Map(initialState, goalState, dimensions, occupiedStates);
+
+        // TODO Pass the search method to the search manager
+        SearchManager searchManager = new SearchManager(SearchMethod.BFS, map);
     }
 }

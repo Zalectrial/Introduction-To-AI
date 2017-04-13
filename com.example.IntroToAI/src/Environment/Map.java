@@ -14,7 +14,7 @@ public class Map {
     int[] dimensions = new int[2];
     int[][] occupiedPos;
     ArrayList<Square> allSquares = new ArrayList<>();
-    MapUI map = new MapUI();
+    public MapUI map = new MapUI();
 
     public Map(int[] startPos, int[] goalPos, int[] dimensions, int[][] occupiedPos) {
 

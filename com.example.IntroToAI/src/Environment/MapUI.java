@@ -13,22 +13,38 @@ public class MapUI extends JPanel {
 
     JFrame frame = new JFrame();
     JLabel[][] fieldGrid;
+    JLabel searchType = new JLabel();
+    JLabel searchPath = new JLabel();
 
     public void setupUserInterface(int row, int col) {
 
         fieldGrid = new JLabel[row][col];
 
-        JPanel panel = new JPanel(new GridLayout(row, col, 1, 1));
-        panel.setBackground(Color.black);
+        JPanel panel = new JPanel(new FlowLayout());
+
+        JPanel map = new JPanel(new GridLayout(row, col, 1, 1));
+        map.setSize(col*50, row*50);
+        map.setBackground(Color.black);
 
         for (int i = 0; i < fieldGrid.length; i++) {
             for (int j = 0; j < fieldGrid[i].length; j++) {
                 fieldGrid[i][j] = createLabel(j, i);
-                panel.add(fieldGrid[i][j]);
+                map.add(fieldGrid[i][j]);
             }
         }
 
-        frame.setSize(col*50,row*50);
+        JPanel searchInformation = new JPanel();
+        searchInformation.setLayout(new BoxLayout(searchInformation, BoxLayout.Y_AXIS));
+        searchInformation.add(new JLabel("SEARCH INFORMATION"));
+        searchInformation.add(new JLabel("Search Method:"));
+        searchInformation.add(searchType);
+        searchInformation.add(new JLabel("Path Progress:"));
+        searchInformation.add(searchPath);
+
+        panel.add(map);
+        panel.add(searchInformation);
+
+        frame.setSize(col*100,row*100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Robot Navigation Problem");
         frame.add(panel);
@@ -82,6 +98,13 @@ public class MapUI extends JPanel {
                 }
             }
         }
+    }
 
+    public void setSearchType(String searchType) {
+        this.searchType.setText(searchType);
+    }
+
+    public void setSearchPath(String searchPath) {
+        this.searchPath.setText(searchPath);
     }
 }
