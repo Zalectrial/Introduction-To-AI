@@ -23,6 +23,15 @@ public class SearchManager {
         map.map.setSearchType(searchMethod.toString());
 
         // TODO implement search handling here
+
+        switch (searchMethod) {
+            case AS: new AStar();
+            case DFS: new DepthFirstSearch();
+            case BFS: new BreadthFirstSearch();
+            case GBFS: new GreedyBestFirstSearch();
+            case CUS1: new CustomSearch1();
+            case CUS2: new CustomSearch2();
+        }
         map.map.setSearchPath("Path route");
     }
 }

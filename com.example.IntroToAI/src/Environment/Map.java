@@ -25,6 +25,7 @@ public class Map {
 
         map.setupUserInterface(dimensions[0], dimensions[1]);
         generateSquares(dimensions);
+        setChildSquares();
         setStartSquare(startPos);
         setGoalSquare(goalPos);
         setOccupiedSquares(occupiedPos);
@@ -40,11 +41,26 @@ public class Map {
         }
     }
 
+    public void setChildSquares() {
+
+        for (Square square: allSquares) {
+            Square left = new Square(square.x, square.y + 1);
+            Square right = new Square(square.x + 1, square.y);
+
+            if (allSquares.contains(left)) {
+                square.setLeftChild(left);
+            }
+            if (allSquares.contains(right)) {
+                square.setRightChild(right);
+            }
+        }
+    }
+
     public void setStartSquare(int[] startPos) {
 
         for (Square square: allSquares) {
             if (square.x == startPos[0] && square.y == startPos[1]) {
-                square.startPos = true;
+                square.setStartPos(true);
                 map.colorStartPosLabel(square);
             }
         }
@@ -54,7 +70,7 @@ public class Map {
 
         for (Square square: allSquares) {
             if (square.x == goalPos[0] && square.y == goalPos[1]) {
-                square.goalPos = true;
+                square.setGoalPos(true);
                 map.colorGoalPosLabel(square);
             }
         }
@@ -85,7 +101,7 @@ public class Map {
             for (Square occupiedSquares: occupied) {
 
                 if (square.x == occupiedSquares.x && square.y == occupiedSquares.y) {
-                    square.occupied = true;
+                    square.setOccupied(true);
                 }
             }
 
