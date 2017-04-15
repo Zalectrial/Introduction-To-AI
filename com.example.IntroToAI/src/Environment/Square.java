@@ -5,19 +5,31 @@
 
 package Environment;
 
+import java.util.ArrayList;
+
 public class Square {
 
     int x;
     int y;
+    private boolean rootNode = false;
     private boolean occupied = false;
     private boolean goalPos = false;
     private boolean startPos = false;
     private Square leftChild;
     private Square rightChild;
+    ArrayList<Square> parentNodes = new ArrayList<>();
 
     public Square(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public boolean isrootNode() {
+        return this.rootNode;
+    }
+
+    public void setRootNode(boolean rootNode) {
+        this.rootNode = rootNode;
     }
 
     public boolean isOccupied() {

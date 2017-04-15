@@ -10,7 +10,7 @@ import Environment.Map;
 public class SearchManager {
 
     SearchMethod searchMethod;
-    Map map;
+    static Map map;
 
     public SearchManager(SearchMethod searchMethod, Map map) {
 
@@ -32,6 +32,5 @@ public class SearchManager {
             case CUS1: new CustomSearch1();
             case CUS2: new CustomSearch2();
         }
-        map.map.setSearchPath("Path route");
     }
 }

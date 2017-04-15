@@ -13,7 +13,7 @@ public class Map {
     int[] goalPos = new int[2];
     int[] dimensions = new int[2];
     int[][] occupiedPos;
-    ArrayList<Square> allSquares = new ArrayList<>();
+    public ArrayList<Square> allSquares = new ArrayList<>();
     public MapUI map = new MapUI();
 
     public Map(int[] startPos, int[] goalPos, int[] dimensions, int[][] occupiedPos) {
@@ -26,6 +26,7 @@ public class Map {
         map.setupUserInterface(dimensions[0], dimensions[1]);
         generateSquares(dimensions);
         setChildSquares();
+        setRootNode();
         setStartSquare(startPos);
         setGoalSquare(goalPos);
         setOccupiedSquares(occupiedPos);
@@ -49,10 +50,21 @@ public class Map {
 
             if (allSquares.contains(left)) {
                 square.setLeftChild(left);
+                square.parentNodes.add(square);
             }
             if (allSquares.contains(right)) {
                 square.setRightChild(right);
+                square.parentNodes.add(square);
             }
+        }
+    }
+
+    public void setRootNode() {
+
+        for (Square square: allSquares) {
+           if ((square.x == 0) && (square.y == 0)) {
+               square.setRootNode(true);
+           }
         }
     }
 
