@@ -88,4 +88,18 @@ public class Square {
     public String toString() {
         return this.x + "," + this.y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+        if (!(obj instanceof Square)) return false;
+
+        Square square = (Square) obj;
+
+        return this.x == square.x &&
+                this.y == square.y;
+    }
+
+
 }

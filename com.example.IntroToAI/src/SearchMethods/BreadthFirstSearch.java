@@ -41,7 +41,6 @@ public class BreadthFirstSearch {
         }
 
         currentSquare = originSquare;
-        visitedSquares.add(currentSquare);
         SearchManager.map.map.setSearchPath(currentSquare.toString());
     }
 
@@ -52,6 +51,22 @@ public class BreadthFirstSearch {
             SearchManager.map.map.setSearchPath("Start position is occupied, exiting search.");
             running = false;
             return;
+        }
+
+        // Check if there are squares in the frontier
+        if ((frontierSquares.size() == 0) && (currentSquare != originSquare)) {
+            SearchManager.map.map.setSearchPath("There are no more squares to search in the frontier.");
+            running = false;
+            return;
+        }
+
+        // Add the current square to visited
+        // Assign the next frontier square to the current square
+        visitedSquares.add(currentSquare);
+
+        if (currentSquare != originSquare) {
+            currentSquare = frontierSquares.get(0);
+            SearchManager.map.map.setSearchPath(currentSquare.toString());
         }
 
         // Check if the current square is the goal state
@@ -75,13 +90,13 @@ public class BreadthFirstSearch {
             if (currentSquare.getTopChild() != null) {
                 frontierSquares.add(currentSquare.getTopChild());
             }
-            else if (currentSquare.getLeftChild() != null) {
+            if (currentSquare.getLeftChild() != null) {
                 frontierSquares.add(currentSquare.getLeftChild());
             }
-            else if (currentSquare.getBottomChild() != null) {
+            if (currentSquare.getBottomChild() != null) {
                 frontierSquares.add(currentSquare.getBottomChild());
             }
-            else if (currentSquare.getRightChild() != null) {
+            if (currentSquare.getRightChild() != null) {
                 frontierSquares.add(currentSquare.getRightChild());
             }
         }
