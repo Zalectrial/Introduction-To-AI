@@ -39,7 +39,11 @@ public class MapUI extends JPanel {
         searchInformation.add(new JLabel("Search Method:"));
         searchInformation.add(searchType);
         searchInformation.add(new JLabel("Path Progress:"));
-        searchInformation.add(searchPath);
+
+        searchPath.setSize(100, 500);
+        JScrollPane scroller = new JScrollPane(searchPath, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.setPreferredSize(new Dimension(100, 500));
+        searchInformation.add(scroller);
 
         panel.add(map);
         panel.add(searchInformation);
@@ -98,6 +102,12 @@ public class MapUI extends JPanel {
                 }
             }
         }
+    }
+
+    public void colourSearchedLabels(Square square) {
+
+        JLabel label = fieldGrid[square.y][square.x];
+        label.setBackground(Color.cyan);
     }
 
     public void setSearchType(String searchType) {

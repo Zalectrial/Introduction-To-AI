@@ -64,13 +64,27 @@ public class BreadthFirstSearch {
         // Assign the next frontier square to the current square
         visitedSquares.add(currentSquare);
 
-        if (currentSquare != originSquare) {
+        if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(0);
+            frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
+        }
+        else if (frontierSquares.size() > 0) {
+            currentSquare = frontierSquares.get(0);
+            frontierSquares.remove(0);
+            SearchManager.map.map.setSearchPath(currentSquare.toString());
+            SearchManager.map.map.colourSearchedLabels(currentSquare);
+        }
+
+        // Check if any of the visited squares are in the frontier
+        for (Square square: visitedSquares) {
+            if (frontierSquares.contains(square)) {
+                frontierSquares.remove(square);
+            }
         }
 
         // Check if the current square is the goal state
-        if (currentSquare == goalSquare) {
+        if (currentSquare.equals(goalSquare)) {
             SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
             running = false;
             return;
@@ -87,16 +101,18 @@ public class BreadthFirstSearch {
 
             // Move in the order of UP, LEFT, DOWN, RIGHT
             // Add the children to the frontier if they exist
-            if (currentSquare.getTopChild() != null) {
+            // Add the children if they haven't been searched already
+            // Add the children if they aren't occupied
+            if ((currentSquare.getTopChild() != null) && !(visitedSquares.contains(currentSquare.getTopChild())) && (!currentSquare.getTopChild().isOccupied())) {
                 frontierSquares.add(currentSquare.getTopChild());
             }
-            if (currentSquare.getLeftChild() != null) {
+            if ((currentSquare.getLeftChild() != null) && !(visitedSquares.contains(currentSquare.getLeftChild())) && (!currentSquare.getLeftChild().isOccupied())) {
                 frontierSquares.add(currentSquare.getLeftChild());
             }
-            if (currentSquare.getBottomChild() != null) {
+            if ((currentSquare.getBottomChild() != null) && !(visitedSquares.contains(currentSquare.getBottomChild())) && (!currentSquare.getBottomChild().isOccupied())) {
                 frontierSquares.add(currentSquare.getBottomChild());
             }
-            if (currentSquare.getRightChild() != null) {
+            if ((currentSquare.getRightChild() != null) && !(visitedSquares.contains(currentSquare.getRightChild())) && (!currentSquare.getRightChild().isOccupied())) {
                 frontierSquares.add(currentSquare.getRightChild());
             }
         }

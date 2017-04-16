@@ -49,20 +49,19 @@ public class Map {
             Square top = new Square(square.x, square.y - 1);
             Square bottom = new Square(square.x, square.y + 1);
 
-            if (allSquares.contains(left)) {
-                square.setLeftChild(left);
-            }
-
-            if (allSquares.contains(right)) {
-                square.setRightChild(right);
-            }
-
-            if (allSquares.contains(top)) {
-                square.setTopChild(top);
-            }
-
-            if (allSquares.contains(bottom)) {
-                square.setBottomChild(bottom);
+            for (Square child: allSquares) {
+                if (child.equals(left)) {
+                    square.setLeftChild(child);
+                }
+                if (child.equals(right)) {
+                    square.setRightChild(child);
+                }
+                if (child.equals(top)) {
+                    square.setTopChild(child);
+                }
+                if (child.equals(bottom)) {
+                    square.setBottomChild(child);
+                }
             }
         }
     }

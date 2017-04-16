@@ -101,5 +101,13 @@ public class Square {
                 this.y == square.y;
     }
 
+    @Override
+    public int hashCode() {
 
+        int result = 0;
+        result = 31*result + x;
+        result = 31*result + y;
+
+        return result;
+    }
 }
