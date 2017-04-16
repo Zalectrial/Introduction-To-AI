@@ -26,7 +26,6 @@ public class Map {
         map.setupUserInterface(dimensions[0], dimensions[1]);
         generateSquares(dimensions);
         setChildSquares();
-        setRootNode();
         setStartSquare(startPos);
         setGoalSquare(goalPos);
         setOccupiedSquares(occupiedPos);
@@ -45,26 +44,26 @@ public class Map {
     public void setChildSquares() {
 
         for (Square square: allSquares) {
-            Square left = new Square(square.x, square.y + 1);
+            Square left = new Square(square.x - 1, square.y);
             Square right = new Square(square.x + 1, square.y);
+            Square top = new Square(square.x, square.y - 1);
+            Square bottom = new Square(square.x, square.y + 1);
 
             if (allSquares.contains(left)) {
                 square.setLeftChild(left);
-                square.parentNodes.add(square);
             }
+
             if (allSquares.contains(right)) {
                 square.setRightChild(right);
-                square.parentNodes.add(square);
             }
-        }
-    }
 
-    public void setRootNode() {
+            if (allSquares.contains(top)) {
+                square.setTopChild(top);
+            }
 
-        for (Square square: allSquares) {
-           if ((square.x == 0) && (square.y == 0)) {
-               square.setRootNode(true);
-           }
+            if (allSquares.contains(bottom)) {
+                square.setBottomChild(bottom);
+            }
         }
     }
 

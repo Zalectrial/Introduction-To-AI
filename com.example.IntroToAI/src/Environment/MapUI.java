@@ -106,6 +106,6 @@ public class MapUI extends JPanel {
 
     public void setSearchPath(String searchPath) {
 
-        this.searchPath.setText(this.searchPath.getText() + searchPath);
+        this.searchPath.setText("<html>" + this.searchPath.getText() + "<br>" + searchPath + "<html>");
     }
 }

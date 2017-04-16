@@ -17,19 +17,12 @@ public class Square {
     private boolean startPos = false;
     private Square leftChild;
     private Square rightChild;
-    ArrayList<Square> parentNodes = new ArrayList<>();
+    private Square topChild;
+    private Square bottomChild;
 
     public Square(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-
-    public boolean isrootNode() {
-        return this.rootNode;
-    }
-
-    public void setRootNode(boolean rootNode) {
-        this.rootNode = rootNode;
     }
 
     public boolean isOccupied() {
@@ -56,8 +49,8 @@ public class Square {
         this.startPos = startPos;
     }
 
-    public boolean hasChild() {
-        return ((leftChild != null) || (rightChild != null));
+    public boolean hasChildren() {
+        return ((leftChild != null) || (rightChild != null) || (topChild != null) || (bottomChild != null));
     }
 
     public Square getLeftChild() {
@@ -74,6 +67,22 @@ public class Square {
 
     public void setRightChild(Square rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public Square getTopChild() {
+        return this.topChild;
+    }
+
+    public void setTopChild(Square topChild) {
+        this.topChild = topChild;
+    }
+
+    public Square getBottomChild() {
+        return this.bottomChild;
+    }
+
+    public void setBottomChild(Square bottomChild) {
+        this.bottomChild = bottomChild;
     }
 
     public String toString() {
