@@ -25,12 +25,12 @@ public class SearchManager {
         // TODO implement search handling here
 
         switch (searchMethod) {
-            case AS: new AStar();
-            case DFS: new DepthFirstSearch();
-            case BFS: new BreadthFirstSearch();
-            case GBFS: new GreedyBestFirstSearch();
-            case CUS1: new CustomSearch1();
-            case CUS2: new CustomSearch2();
+            case AS: new AStar(); break;
+            case DFS: new DepthFirstSearch(); break;
+            case BFS: new BreadthFirstSearch(); break;
+            case GBFS: new GreedyBestFirstSearch(); break;
+            case CUS1: new CustomSearch1(); break;
+            case CUS2: new CustomSearch2(); break;
         }
     }
 }

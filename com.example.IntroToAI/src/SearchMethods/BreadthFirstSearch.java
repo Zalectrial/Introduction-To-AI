@@ -68,12 +68,14 @@ public class BreadthFirstSearch {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
+            System.out.println(this.getClass() + "-" + currentSquare);
         }
         else if (frontierSquares.size() > 0) {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
+            System.out.println(this.getClass() + "-" + currentSquare);
         }
 
         // Check if any of the visited squares are in the frontier

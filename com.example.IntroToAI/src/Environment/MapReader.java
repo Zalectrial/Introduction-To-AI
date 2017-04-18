@@ -29,6 +29,7 @@ public class MapReader {
         parseFile();
         Map map = new Map(initialState, goalState, dimensions, occupiedStates);
         new SearchManager(SearchMethod.valueOf(searchMethod), map);
+//        new SearchManager(SearchMethod.BFS, map);
     }
 
     public void readFile() {
