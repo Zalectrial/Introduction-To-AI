@@ -63,6 +63,19 @@ public class MapUI extends JPanel {
         return label;
     }
 
+    private void displayManhattenCost(Square square, int cost) {
+
+        for (int i = 0; i < fieldGrid.length; i++) {
+            for (int j = 0; j < fieldGrid[i].length; j++) {
+                JLabel label = fieldGrid[i][j];
+
+                if (label.getText().equals(square.toString())) {
+                    label.setText("<html>" + label.getText() + "<br>" + cost + "</html>");
+                }
+            }
+        }
+    }
+
     public void colorStartPosLabel(Square square) {
 
         for (int i = 0; i < fieldGrid.length; i++) {

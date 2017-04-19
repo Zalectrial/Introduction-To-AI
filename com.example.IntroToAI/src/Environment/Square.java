@@ -89,6 +89,23 @@ public class Square {
         return this.x + "," + this.y;
     }
 
+    public int distanceBetweenSquares(Square goal, Square current) {
+
+        int distance;
+
+        if (goal.x == current.x) {
+            distance = goal.y - current.y;
+        }
+        else if (goal.y == current.y) {
+            distance = goal.x = current.x;
+        }
+        else {
+            distance = (goal.x - current.x) + (goal.y - current.y);
+        }
+
+        return distance;
+    }
+
     @Override
     public boolean equals(Object obj) {
 

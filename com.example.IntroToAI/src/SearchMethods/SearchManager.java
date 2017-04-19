@@ -22,8 +22,6 @@ public class SearchManager {
     public void Search() {
         map.map.setSearchType(searchMethod.toString());
 
-        // TODO implement search handling here
-
         switch (searchMethod) {
             case AS: new AStar(); break;
             case DFS: new DepthFirstSearch(); break;

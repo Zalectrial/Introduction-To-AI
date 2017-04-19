@@ -5,64 +5,20 @@
 
 package SearchMethods;
 
-import Environment.Square;
-import java.util.ArrayList;
-
-public class BreadthFirstSearch {
-
-    Square originSquare;
-    Square goalSquare;
-    Square currentSquare;
-    ArrayList<Square> visitedSquares = new ArrayList<>();
-    ArrayList<Square> frontierSquares = new ArrayList<>();
-    ArrayList<Square> allSquares = new ArrayList<>();
-    boolean running = true;
+public class BreadthFirstSearch extends Search {
 
     public BreadthFirstSearch() {
 
-        allSquares = SearchManager.map.allSquares;
-        setupSearch();
+        super();
 
         while (running) {
             search();
         }
     }
 
-    public void setupSearch() {
-
-        for (Square square: allSquares) {
-            if (square.isGoalPos()) {
-                goalSquare = square;
-            }
-
-            if (square.isStartPos()) {
-                originSquare = square;
-            }
-        }
-
-        currentSquare = originSquare;
-        SearchManager.map.map.setSearchPath(currentSquare.toString());
-    }
-
     public void search() {
 
-        // Check if start position is occupied, can't search if it is
-        if (originSquare.isOccupied()) {
-            SearchManager.map.map.setSearchPath("Start position is occupied, exiting search.");
-            running = false;
-            return;
-        }
-
-        // Check if there are squares in the frontier
-        if ((frontierSquares.size() == 0) && (currentSquare != originSquare)) {
-            SearchManager.map.map.setSearchPath("There are no more squares to search in the frontier.");
-            running = false;
-            return;
-        }
-
-        // Add the current square to visited
-        // Assign the next frontier square to the current square
-        visitedSquares.add(currentSquare);
+        super.search();
 
         if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(0);
@@ -76,20 +32,6 @@ public class BreadthFirstSearch {
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
-        }
-
-        // Check if any of the visited squares are in the frontier
-        for (Square square: visitedSquares) {
-            if (frontierSquares.contains(square)) {
-                frontierSquares.remove(square);
-            }
-        }
-
-        // Check if the current square is the goal state
-        if (currentSquare.equals(goalSquare)) {
-            SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
-            running = false;
-            return;
         }
 
         // Check if the square has children we can move to
