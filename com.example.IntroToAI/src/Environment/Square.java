@@ -11,7 +11,6 @@ public class Square {
 
     int x;
     int y;
-    private boolean rootNode = false;
     private boolean occupied = false;
     private boolean goalPos = false;
     private boolean startPos = false;
@@ -19,6 +18,7 @@ public class Square {
     private Square rightChild;
     private Square topChild;
     private Square bottomChild;
+    private int manhattanDistance;
 
     public Square(int x, int y) {
         this.x = x;
@@ -89,21 +89,14 @@ public class Square {
         return this.x + "," + this.y;
     }
 
-    public int distanceBetweenSquares(Square goal, Square current) {
+    public int getManhattanDistance() {
 
-        int distance;
+        return this.manhattanDistance;
+    }
 
-        if (goal.x == current.x) {
-            distance = goal.y - current.y;
-        }
-        else if (goal.y == current.y) {
-            distance = goal.x = current.x;
-        }
-        else {
-            distance = (goal.x - current.x) + (goal.y - current.y);
-        }
+    public void setManhattanDistance(int manhattanDistance) {
 
-        return distance;
+        this.manhattanDistance = manhattanDistance;
     }
 
     @Override

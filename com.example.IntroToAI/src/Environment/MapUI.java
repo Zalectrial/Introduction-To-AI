@@ -63,7 +63,7 @@ public class MapUI extends JPanel {
         return label;
     }
 
-    private void displayManhattenCost(Square square, int cost) {
+    public void displayManhattanCost(Square square, int cost) {
 
         for (int i = 0; i < fieldGrid.length; i++) {
             for (int j = 0; j < fieldGrid[i].length; j++) {

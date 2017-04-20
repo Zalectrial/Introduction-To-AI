@@ -29,6 +29,7 @@ public class Map {
         setStartSquare(startPos);
         setGoalSquare(goalPos);
         setOccupiedSquares(occupiedPos);
+        distanceBetweenSquares();
     }
 
     public void generateSquares(int[] dimensions) {
@@ -118,5 +119,28 @@ public class Map {
         }
 
         map.colorOccupiedLabels(occupied);
+    }
+
+    public void distanceBetweenSquares() {
+
+        int distance;
+
+        for (Square square: allSquares) {
+
+            if ((goalPos[0] == square.x) && (goalPos[1] == square.y)) {
+                distance = 0;
+            }
+            else if (goalPos[0] == square.x) {
+                distance = Math.abs(goalPos[1] - square.y);
+            }
+            else if (goalPos[1] == square.y) {
+                distance = Math.abs(square.x - goalPos[0]);
+            }
+            else {
+                distance = Math.abs((goalPos[0] - square.x)) + Math.abs((goalPos[1] - square.y));
+            }
+
+            square.setManhattanDistance(Math.abs(distance));
+        }
     }
 }

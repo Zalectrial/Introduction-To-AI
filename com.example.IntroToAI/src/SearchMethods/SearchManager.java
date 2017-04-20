@@ -9,7 +9,7 @@ import Environment.Map;
 
 public class SearchManager {
 
-    SearchMethod searchMethod;
+    static SearchMethod searchMethod;
     static Map map;
 
     public SearchManager(SearchMethod searchMethod, Map map) {

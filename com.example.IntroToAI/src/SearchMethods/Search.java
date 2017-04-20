@@ -7,6 +7,7 @@ package SearchMethods;
 
 import Environment.Square;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Search {
 
@@ -38,6 +39,14 @@ public class Search {
 
         currentSquare = originSquare;
         SearchManager.map.map.setSearchPath(currentSquare.toString());
+
+        if ((SearchManager.searchMethod == SearchMethod.GBFS) || (SearchManager.searchMethod == SearchMethod.AS)) {
+
+            for (Square square: allSquares) {
+
+                SearchManager.map.map.displayManhattanCost(square, square.getManhattanDistance());
+            }
+        }
     }
 
     public void search() {
@@ -65,13 +74,6 @@ public class Search {
             if (frontierSquares.contains(square)) {
                 frontierSquares.remove(square);
             }
-        }
-
-        // Check if the current square is the goal state
-        if (currentSquare.equals(goalSquare)) {
-            SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
-            running = false;
-            return;
         }
     }
 }
