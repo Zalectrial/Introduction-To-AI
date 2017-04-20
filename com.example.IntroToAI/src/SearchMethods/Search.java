@@ -44,13 +44,17 @@ public class Search {
 
             for (Square square: allSquares) {
 
-                SearchManager.map.map.displayManhattanCost(square, String.valueOf(square.getManhattanDistance()));
+                if (!square.isOccupied()) {
+                    SearchManager.map.map.displayManhattanCost(square, String.valueOf(square.getManhattanDistance()));
+                }
             }
         }
         else if (SearchManager.searchMethod == SearchMethod.AS) for (Square square: allSquares) {
 
-            String cost = square.getManhattanDistance() + " + " + square.getCostToNode();
-            SearchManager.map.map.displayManhattanCost(square, cost);
+            if (!square.isOccupied()) {
+                String cost = square.getManhattanDistance() + " + " + square.getCostToNode();
+                SearchManager.map.map.displayManhattanCost(square, cost);
+            }
         }
     }
 

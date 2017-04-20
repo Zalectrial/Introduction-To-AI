@@ -24,6 +24,7 @@ public class DepthFirstSearch extends Search {
             currentSquare = frontierSquares.get(frontierSquares.size() - 1);
             frontierSquares.remove(frontierSquares.size() - 1);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
+            SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
         }
         else if (frontierSquares.size() > 0) {

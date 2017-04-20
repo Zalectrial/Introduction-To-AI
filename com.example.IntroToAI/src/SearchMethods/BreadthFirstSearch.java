@@ -24,6 +24,7 @@ public class BreadthFirstSearch extends Search {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
+            SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
         }
         else if (frontierSquares.size() > 0) {

@@ -108,6 +108,10 @@ public class Square {
         this.costToNode = costToNode;
     }
 
+    public int getCombinedCost() {
+        return this.costToNode + this.manhattanDistance;
+    }
+
     @Override
     public boolean equals(Object obj) {
 

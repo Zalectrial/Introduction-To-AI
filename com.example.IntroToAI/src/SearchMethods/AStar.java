@@ -5,6 +5,12 @@
 
 package SearchMethods;
 
+import Environment.Square;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
 public class AStar extends Search {
 
     public AStar() {
@@ -24,9 +30,18 @@ public class AStar extends Search {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
+            SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
         }
         else if (frontierSquares.size() > 0) {
+
+            Collections.sort(frontierSquares, new Comparator<Square>() {
+                @Override
+                public int compare(Square o1, Square o2) {
+                    return Integer.compare(o2.getCombinedCost(), o1.getCombinedCost());
+                }
+            });
+
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
@@ -50,22 +65,55 @@ public class AStar extends Search {
         }
         else {
 
-            // Move in the order of UP, LEFT, DOWN, RIGHT
-            // Add the children to the frontier if they exist
-            // Add the children if they haven't been searched already
-            // Add the children if they aren't occupied
-            if ((currentSquare.getTopChild() != null) && !(visitedSquares.contains(currentSquare.getTopChild())) && (!currentSquare.getTopChild().isOccupied())) {
-                frontierSquares.add(currentSquare.getTopChild());
+            // Find the lowest cost move
+            ArrayList<Square> lowestCost = orderLowestCost();
+
+            // Remove the squares we aren't going to use
+            for (Iterator<Square> it = lowestCost.iterator(); it.hasNext(); ) {
+                Square square = it.next();
+                if ((visitedSquares.contains(square)) || (square.isOccupied())) {
+                    it.remove();
+                }
             }
-            if ((currentSquare.getLeftChild() != null) && !(visitedSquares.contains(currentSquare.getLeftChild())) && (!currentSquare.getLeftChild().isOccupied())) {
-                frontierSquares.add(currentSquare.getLeftChild());
-            }
-            if ((currentSquare.getBottomChild() != null) && !(visitedSquares.contains(currentSquare.getBottomChild())) && (!currentSquare.getBottomChild().isOccupied())) {
-                frontierSquares.add(currentSquare.getBottomChild());
-            }
-            if ((currentSquare.getRightChild() != null) && !(visitedSquares.contains(currentSquare.getRightChild())) && (!currentSquare.getRightChild().isOccupied())) {
-                frontierSquares.add(currentSquare.getRightChild());
+
+            for (Square square: lowestCost) {
+                frontierSquares.add(square);
             }
         }
+    }
+
+    private ArrayList<Square> orderLowestCost() {
+
+        Square topSquare = currentSquare.getTopChild();
+        Square leftSquare = currentSquare.getLeftChild();
+        Square bottomSquare = currentSquare.getBottomChild();
+        Square rightSquare = currentSquare.getRightChild();
+
+        ArrayList<Square> orderedSquares = new ArrayList<>();
+
+        if (topSquare != null) {
+            orderedSquares.add(topSquare);
+        }
+        if (leftSquare != null) {
+            orderedSquares.add(leftSquare);
+        }
+        if (bottomSquare != null) {
+            orderedSquares.add(bottomSquare);
+        }
+        if (rightSquare != null) {
+            orderedSquares.add(rightSquare);
+        }
+
+        // Implement a comparator to order the squares by manhattan distance
+        Collections.sort(orderedSquares, new Comparator<Square>() {
+            @Override
+            public int compare(Square square2, Square square1)
+            {
+                if ((square1 == null) || (square2 == null)) { return 0; }
+                return  Integer.compare(square2.getCombinedCost(), square1.getCombinedCost());
+            }
+        });
+
+        return orderedSquares;
     }
 }
