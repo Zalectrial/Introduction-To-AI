@@ -40,12 +40,17 @@ public class Search {
         currentSquare = originSquare;
         SearchManager.map.map.setSearchPath(currentSquare.toString());
 
-        if ((SearchManager.searchMethod == SearchMethod.GBFS) || (SearchManager.searchMethod == SearchMethod.AS)) {
+        if (SearchManager.searchMethod == SearchMethod.GBFS) {
 
             for (Square square: allSquares) {
 
-                SearchManager.map.map.displayManhattanCost(square, square.getManhattanDistance());
+                SearchManager.map.map.displayManhattanCost(square, String.valueOf(square.getManhattanDistance()));
             }
+        }
+        else if (SearchManager.searchMethod == SearchMethod.AS) for (Square square: allSquares) {
+
+            String cost = square.getManhattanDistance() + " + " + square.getCostToNode();
+            SearchManager.map.map.displayManhattanCost(square, cost);
         }
     }
 

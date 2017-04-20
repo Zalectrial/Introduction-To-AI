@@ -23,15 +23,22 @@ public class AStar extends Search {
         if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
-            SearchManager.map.map.setSearchPath(currentSquare.toString());
+            SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             System.out.println(this.getClass() + "-" + currentSquare);
         }
         else if (frontierSquares.size() > 0) {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
-            SearchManager.map.map.setSearchPath(currentSquare.toString());
+            SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
+        }
+
+        // Check if the current square is the goal state
+        if (currentSquare.equals(goalSquare)) {
+            SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
+            running = false;
+            return;
         }
 
         // Check if the square has children we can move to

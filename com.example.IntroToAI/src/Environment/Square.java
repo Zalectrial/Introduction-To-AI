@@ -19,6 +19,7 @@ public class Square {
     private Square topChild;
     private Square bottomChild;
     private int manhattanDistance;
+    private int costToNode;
 
     public Square(int x, int y) {
         this.x = x;
@@ -97,6 +98,14 @@ public class Square {
     public void setManhattanDistance(int manhattanDistance) {
 
         this.manhattanDistance = manhattanDistance;
+    }
+
+    public int getCostToNode() {
+        return this.costToNode;
+    }
+
+    public void setCostToNode(int costToNode) {
+        this.costToNode = costToNode;
     }
 
     @Override

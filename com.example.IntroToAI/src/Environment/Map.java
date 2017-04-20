@@ -5,6 +5,8 @@
 
 package Environment;
 
+import SearchMethods.SearchManager;
+
 import java.util.ArrayList;
 
 public class Map {
@@ -29,7 +31,8 @@ public class Map {
         setStartSquare(startPos);
         setGoalSquare(goalPos);
         setOccupiedSquares(occupiedPos);
-        distanceBetweenSquares();
+        calculateManhattanCost();
+        calculateCostToNode();
     }
 
     public void generateSquares(int[] dimensions) {
@@ -121,7 +124,7 @@ public class Map {
         map.colorOccupiedLabels(occupied);
     }
 
-    public void distanceBetweenSquares() {
+    public void calculateManhattanCost() {
 
         int distance;
 
@@ -141,6 +144,29 @@ public class Map {
             }
 
             square.setManhattanDistance(Math.abs(distance));
+        }
+    }
+
+    public void calculateCostToNode() {
+
+        int distance;
+
+        for (Square square: allSquares) {
+
+            if ((startPos[0] == square.x) && (startPos[1] == square.y)) {
+                distance = 0;
+            }
+            else if (startPos[0] == square.x) {
+                distance = Math.abs(startPos[1] - square.y);
+            }
+            else if (startPos[1] == square.y) {
+                distance = Math.abs(square.x - startPos[0]);
+            }
+            else {
+                distance = Math.abs((startPos[0] - square.x)) + Math.abs((startPos[1] - square.y));
+            }
+
+            square.setCostToNode(Math.abs(distance));
         }
     }
 }
