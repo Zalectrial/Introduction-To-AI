@@ -35,7 +35,7 @@ public class AStar extends Search {
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
-            System.out.println(this.getClass() + "-" + currentSquare);
+            System.out.println(currentSquare);
         }
         // If we have searched already and we have a frontier, do this
         // Order the frontier from smallest to largest combined Manhattan and cost to node
@@ -54,7 +54,7 @@ public class AStar extends Search {
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
-            System.out.println(this.getClass() + "-" + currentSquare);
+            System.out.println(currentSquare);
         }
 
         // Check if the current square is the goal state

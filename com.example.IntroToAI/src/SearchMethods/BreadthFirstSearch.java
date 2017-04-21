@@ -29,7 +29,7 @@ public class BreadthFirstSearch extends Search {
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
-            System.out.println(this.getClass() + "-" + currentSquare);
+            System.out.println(currentSquare);
         }
         // If we have searched already and we have a frontier, do this
         // Get the first object from the frontier and assign it to the current square
@@ -39,7 +39,7 @@ public class BreadthFirstSearch extends Search {
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
-            System.out.println(this.getClass() + "-" + currentSquare);
+            System.out.println(currentSquare);
         }
 
         // Check if the current square is the goal state

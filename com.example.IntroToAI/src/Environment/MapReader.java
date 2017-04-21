@@ -24,6 +24,8 @@ public class MapReader {
     public MapReader(String fileName, String searchMethod) {
 
         this.fileName = fileName;
+        System.out.println(fileName);
+        System.out.println(SearchMethod.valueOf(searchMethod));
         readFile();
         parseFile();
         Map map = new Map(initialState, goalState, dimensions, occupiedStates);

@@ -38,6 +38,8 @@ public class Map {
                 allSquares.add(square);
             }
         }
+
+        System.out.println(allSquares.size());
     }
 
     // For every square, find if it has children and assign them to the correct property
