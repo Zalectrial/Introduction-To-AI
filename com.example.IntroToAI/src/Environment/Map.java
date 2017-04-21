@@ -5,25 +5,19 @@
 
 package Environment;
 
-import SearchMethods.SearchManager;
-
 import java.util.ArrayList;
 
 public class Map {
 
-    static int[] startPos = new int[2];
-    int[] goalPos = new int[2];
-    int[] dimensions = new int[2];
-    int[][] occupiedPos;
+    private static int[] startPos = new int[2];
+    private int[] goalPos = new int[2];
     public ArrayList<Square> allSquares = new ArrayList<>();
     public MapUI map = new MapUI();
 
-    public Map(int[] startPos, int[] goalPos, int[] dimensions, int[][] occupiedPos) {
+    Map(int[] startPos, int[] goalPos, int[] dimensions, int[][] occupiedPos) {
 
         this.startPos = startPos;
         this.goalPos = goalPos;
-        this.dimensions = dimensions;
-        this.occupiedPos = occupiedPos;
 
         map.setupUserInterface(dimensions[0], dimensions[1]);
         generateSquares(dimensions);
@@ -35,7 +29,8 @@ public class Map {
         calculateCostToNode();
     }
 
-    public void generateSquares(int[] dimensions) {
+    // Generate all the squares needed to fill the NxM grid
+    private void generateSquares(int[] dimensions) {
 
         for (int row = 0; row < dimensions[0]; row++) {
             for (int col = 0; col < dimensions[1]; col++) {
@@ -45,7 +40,8 @@ public class Map {
         }
     }
 
-    public void setChildSquares() {
+    // For every square, find if it has children and assign them to the correct property
+    private void setChildSquares() {
 
         for (Square square: allSquares) {
             Square left = new Square(square.x - 1, square.y);
@@ -70,27 +66,31 @@ public class Map {
         }
     }
 
-    public void setStartSquare(int[] startPos) {
+    // Find the start square and set it as start position = true
+    private void setStartSquare(int[] startPos) {
 
         for (Square square: allSquares) {
             if (square.x == startPos[0] && square.y == startPos[1]) {
                 square.setStartPos(true);
-                map.colorStartPosLabel(square);
+                map.colourStartPosLabel(square);
             }
         }
     }
 
-    public void setGoalSquare(int[] goalPos) {
+    // Find the goal square and set it as goal position = true
+    private void setGoalSquare(int[] goalPos) {
 
         for (Square square: allSquares) {
             if (square.x == goalPos[0] && square.y == goalPos[1]) {
                 square.setGoalPos(true);
-                map.colorGoalPosLabel(square);
+                map.colourGoalPosLabel(square);
             }
         }
     }
 
-    public void setOccupiedSquares(int[][] occupiedPos) {
+    // Find the coordinates of every occupied square
+    // For each of these squares, set the occupied property to true
+    private void setOccupiedSquares(int[][] occupiedPos) {
 
         ArrayList<Square> occupied = new ArrayList<>();
 
@@ -121,10 +121,11 @@ public class Map {
 
         }
 
-        map.colorOccupiedLabels(occupied);
+        map.colourOccupiedLabels(occupied);
     }
 
-    public void calculateManhattanCost() {
+    // For every square, calculate its Manhattan distance to the goal square
+    private void calculateManhattanCost() {
 
         int distance;
 
@@ -147,7 +148,8 @@ public class Map {
         }
     }
 
-    public void calculateCostToNode() {
+    // For every square calculate its cost to reach from the start square
+    private void calculateCostToNode() {
 
         int distance;
 

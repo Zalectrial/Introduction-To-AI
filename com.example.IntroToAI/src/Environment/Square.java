@@ -5,8 +5,6 @@
 
 package Environment;
 
-import java.util.ArrayList;
-
 public class Square {
 
     int x;
@@ -21,7 +19,7 @@ public class Square {
     private int manhattanDistance;
     private int costToNode;
 
-    public Square(int x, int y) {
+    Square(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -30,7 +28,7 @@ public class Square {
         return this.occupied;
     }
 
-    public void setOccupied(boolean occupied) {
+    void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
 
@@ -38,7 +36,7 @@ public class Square {
         return this.goalPos;
     }
 
-    public void setGoalPos(boolean goalPos) {
+    void setGoalPos(boolean goalPos) {
         this.goalPos = goalPos;
     }
 
@@ -46,7 +44,7 @@ public class Square {
         return this.startPos;
     }
 
-    public void setStartPos(boolean startPos) {
+    void setStartPos(boolean startPos) {
         this.startPos = startPos;
     }
 
@@ -58,7 +56,7 @@ public class Square {
         return leftChild;
     }
 
-    public void setLeftChild(Square leftChild) {
+    void setLeftChild(Square leftChild) {
         this.leftChild = leftChild;
     }
 
@@ -66,7 +64,7 @@ public class Square {
         return rightChild;
     }
 
-    public void setRightChild(Square rightChild) {
+    void setRightChild(Square rightChild) {
         this.rightChild = rightChild;
     }
 
@@ -74,7 +72,7 @@ public class Square {
         return this.topChild;
     }
 
-    public void setTopChild(Square topChild) {
+    void setTopChild(Square topChild) {
         this.topChild = topChild;
     }
 
@@ -82,7 +80,7 @@ public class Square {
         return this.bottomChild;
     }
 
-    public void setBottomChild(Square bottomChild) {
+    void setBottomChild(Square bottomChild) {
         this.bottomChild = bottomChild;
     }
 
@@ -95,7 +93,7 @@ public class Square {
         return this.manhattanDistance;
     }
 
-    public void setManhattanDistance(int manhattanDistance) {
+    void setManhattanDistance(int manhattanDistance) {
 
         this.manhattanDistance = manhattanDistance;
     }
@@ -104,7 +102,7 @@ public class Square {
         return this.costToNode;
     }
 
-    public void setCostToNode(int costToNode) {
+    void setCostToNode(int costToNode) {
         this.costToNode = costToNode;
     }
 
@@ -113,6 +111,7 @@ public class Square {
     }
 
     @Override
+    // Override the equals method in order to compare squares only by their x and y values
     public boolean equals(Object obj) {
 
         if (this == obj) return true;
@@ -125,6 +124,7 @@ public class Square {
     }
 
     @Override
+    // Override hashChode method as it is required when you override equals
     public int hashCode() {
 
         int result = 0;
