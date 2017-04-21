@@ -68,6 +68,7 @@ public class Search {
         // Check if start position is occupied, can't search if it is
         if (originSquare.isOccupied()) {
             SearchManager.map.map.setSearchPath("Start position is occupied, exiting search.");
+            System.out.println("Start position is occupied, exiting search.");
             running = false;
             return;
         }
@@ -75,6 +76,7 @@ public class Search {
         // Check if there are squares in the frontier
         if ((frontierSquares.size() == 0) && (currentSquare != originSquare)) {
             SearchManager.map.map.setSearchPath("There are no more squares to search in the frontier.");
+            System.out.println("There are no more squares to search in the frontier.");
             running = false;
             return;
         }

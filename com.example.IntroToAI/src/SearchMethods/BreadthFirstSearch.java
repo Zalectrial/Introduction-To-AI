@@ -45,6 +45,7 @@ public class BreadthFirstSearch extends Search {
         // Check if the current square is the goal state
         if (currentSquare.equals(goalSquare)) {
             SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
+            System.out.println("Goal position found at: " + currentSquare);
             running = false;
             return;
         }
@@ -53,6 +54,7 @@ public class BreadthFirstSearch extends Search {
         // End the program if not
         if (!currentSquare.hasChildren()) {
             SearchManager.map.map.setSearchPath("There are no children left to move to.");
+            System.out.println("There are no children left to move to.");
             running = false;
             return;
         }
