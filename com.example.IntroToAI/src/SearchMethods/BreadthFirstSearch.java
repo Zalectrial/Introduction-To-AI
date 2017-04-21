@@ -7,7 +7,7 @@ package SearchMethods;
 
 public class BreadthFirstSearch extends Search {
 
-    public BreadthFirstSearch() {
+    BreadthFirstSearch() {
 
         super();
 
@@ -18,8 +18,12 @@ public class BreadthFirstSearch extends Search {
 
     public void search() {
 
+        // Call the parent search method
         super.search();
 
+        // If we have a frontier and we haven't searched anything yet, do this
+        // Get the first object in the frontier and assign it to the current square
+        // Remove this square from the frontier
         if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);
@@ -27,6 +31,9 @@ public class BreadthFirstSearch extends Search {
             SearchManager.map.map.colourSearchedLabels(currentSquare);
             System.out.println(this.getClass() + "-" + currentSquare);
         }
+        // If we have searched already and we have a frontier, do this
+        // Get the first object from the frontier and assign it to the current square
+        // Remove this square from the frontier
         else if (frontierSquares.size() > 0) {
             currentSquare = frontierSquares.get(0);
             frontierSquares.remove(0);

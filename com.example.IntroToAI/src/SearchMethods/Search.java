@@ -7,7 +7,6 @@ package SearchMethods;
 
 import Environment.Square;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Search {
 
@@ -16,17 +15,19 @@ public class Search {
     Square currentSquare;
     ArrayList<Square> visitedSquares = new ArrayList<>();
     ArrayList<Square> frontierSquares = new ArrayList<>();
-    ArrayList<Square> allSquares = new ArrayList<>();
+    private ArrayList<Square> allSquares = new ArrayList<>();
     boolean running = true;
 
-    public Search() {
+    Search() {
 
         allSquares = SearchManager.map.allSquares;
         setupSearch();
     }
 
-    public void setupSearch() {
+    // Gets the program ready for searching
+    private void setupSearch() {
 
+        // Sets some handy variables of the start and goal positions to be used during searching
         for (Square square: allSquares) {
             if (square.isGoalPos()) {
                 goalSquare = square;
@@ -37,9 +38,12 @@ public class Search {
             }
         }
 
+        // Sets the current square to be the start of the search
+        // Updates the search path on the UI
         currentSquare = originSquare;
         SearchManager.map.map.setSearchPath(currentSquare.toString());
 
+        // If the search type is GFBS, display Manhattan costs
         if (SearchManager.searchMethod == SearchMethod.GBFS) {
 
             for (Square square: allSquares) {
@@ -49,6 +53,7 @@ public class Search {
                 }
             }
         }
+        // If the search type is A* display the Manhattan costs and cost to node
         else if (SearchManager.searchMethod == SearchMethod.AS) for (Square square: allSquares) {
 
             if (!square.isOccupied()) {
@@ -75,10 +80,9 @@ public class Search {
         }
 
         // Add the current square to visited
-        // Assign the next frontier square to the current square
         visitedSquares.add(currentSquare);
 
-        // Check if any of the visited squares are in the frontier
+        // Check if any of the visited squares are in the frontier and remove them if they are
         for (Square square: visitedSquares) {
             if (frontierSquares.contains(square)) {
                 frontierSquares.remove(square);

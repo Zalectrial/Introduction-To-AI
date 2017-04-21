@@ -19,7 +19,9 @@ public class SearchManager {
         Search();
     }
 
-    public void Search() {
+    // Sets the search type on the UI
+    // Switches through the search methods and calls the appropriate search class
+    private void Search() {
         map.map.setSearchType(searchMethod.toString());
 
         switch (searchMethod) {

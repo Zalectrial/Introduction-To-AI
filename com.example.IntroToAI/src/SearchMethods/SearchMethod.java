@@ -5,6 +5,7 @@
 
 package SearchMethods;
 
+// The different search methods for this program
 public enum SearchMethod {
     DFS,
     BFS,
