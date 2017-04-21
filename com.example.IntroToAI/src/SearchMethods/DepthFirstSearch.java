@@ -7,6 +7,8 @@ package SearchMethods;
 
 public class DepthFirstSearch extends Search {
 
+    int count = 0;
+
     DepthFirstSearch() {
 
         super();
@@ -26,6 +28,7 @@ public class DepthFirstSearch extends Search {
         // Remove this square from the frontier
         if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(frontierSquares.size() - 1);
+            count++;
             frontierSquares.remove(frontierSquares.size() - 1);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
@@ -36,6 +39,7 @@ public class DepthFirstSearch extends Search {
         // Remove this square from the froniter
         else if (frontierSquares.size() > 0) {
             currentSquare = frontierSquares.get(frontierSquares.size() - 1);
+            count++;
             frontierSquares.remove(frontierSquares.size() - 1);
             SearchManager.map.map.setSearchPath(currentSquare.toString());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
@@ -45,6 +49,7 @@ public class DepthFirstSearch extends Search {
         // Check if the current square is the goal state
         if (currentSquare.equals(goalSquare)) {
             SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
+            SearchManager.map.map.setSearchPath("Nodes traversed: " + count);
             System.out.println("Goal position found at: " + currentSquare);
             running = false;
             return;

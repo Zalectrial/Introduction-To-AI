@@ -13,6 +13,8 @@ import java.util.Iterator;
 
 public class AStar extends Search {
 
+    int count = 0;
+
     public AStar() {
 
         super();
@@ -32,6 +34,7 @@ public class AStar extends Search {
         // Remove this square from the frontier
         if (currentSquare.equals(originSquare) && (frontierSquares.size() > 0)) {
             currentSquare = frontierSquares.get(0);
+            count++;
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
@@ -51,6 +54,7 @@ public class AStar extends Search {
             });
 
             currentSquare = frontierSquares.get(0);
+            count++;
             frontierSquares.remove(0);
             SearchManager.map.map.setSearchPath(currentSquare.toString() + " Cost: " + currentSquare.getManhattanDistance() + " + " + currentSquare.getCostToNode());
             SearchManager.map.map.colourSearchedLabels(currentSquare);
@@ -60,6 +64,7 @@ public class AStar extends Search {
         // Check if the current square is the goal state
         if (currentSquare.equals(goalSquare)) {
             SearchManager.map.map.setSearchPath("Goal position found at: " + currentSquare);
+            SearchManager.map.map.setSearchPath("Nodes traversed: " + count);
             System.out.println("Goal position found at: " + currentSquare);
             running = false;
             return;
