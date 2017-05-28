@@ -26,7 +26,8 @@ class KBReader {
             String line;
             int index = 0;
 
-            while ((line = reader.readLine()) != null && index < 5) {
+            // read the file while the lines aren't null and the length is less than 4
+            while ((line = reader.readLine()) != null && index < 4) {
 
                 if (index == 1) {
                     tell = line;
@@ -43,10 +44,12 @@ class KBReader {
         }
     }
 
+    // return the tell
     String getTell() {
         return this.tell;
     }
 
+    // return the ask
     String getAsk() {
         return this.ask;
     }

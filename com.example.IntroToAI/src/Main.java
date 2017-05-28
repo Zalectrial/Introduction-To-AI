@@ -21,6 +21,7 @@ public class Main {
         System.out.println(tell);
         System.out.println(ask);
 
+        // Assess the inference type and create a new instance of it
         switch (method) {
             case BC: new BackwardChaining(tell, ask);
                 break;
