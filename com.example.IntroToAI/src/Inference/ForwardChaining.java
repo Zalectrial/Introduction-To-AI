@@ -6,113 +6,120 @@
 package Inference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ForwardChaining {
 
-    String tell;
-    String ask;
-
-    public static ArrayList<String> agenda;
-    public static ArrayList<String> facts;
-    public static ArrayList<String> clauses;
-    public static ArrayList<Integer> count;
-    public static ArrayList<String> entailed;
+    private String tell;
+    private String ask;
+    private ArrayList<String> agenda;
+    private ArrayList<String> facts;
+    private ArrayList<String> clauses;
+    private ArrayList<String> entailed;
 
     public ForwardChaining(String tell, String ask) {
 
         this.tell = tell;
         this.ask = ask;
 
-        agenda  = new ArrayList<String>();
-        clauses  = new ArrayList<String>();
-        entailed  = new ArrayList<String>();
-        facts  = new ArrayList<String>();
-        count  = new ArrayList<Integer>();
-        init(tell);
-        execute();
+        agenda  = new ArrayList<>();
+        clauses  = new ArrayList<>();
+        entailed  = new ArrayList<>();
+        facts  = new ArrayList<>();
+        setup();
+        System.out.print(execute());
     }
 
-    // method which calls the main fcentails() method and returns output back to iengine
-    public String execute(){
-        String output = "";
-        if (fcentails()){
+    private void setup() {
+
+        // split the knowledge base into facts and clauses
+        String[] temp = this.tell.split(";");
+        for (String string: temp) {
+            if (string.contains("=>")) {
+                clauses.add(string);
+            }
+            else {
+                facts.add(string);
+                agenda.add(string);
+            }
+        }
+    }
+
+    // execute the search and print the output
+    private String execute(){
+        String output;
+
+        if (entails()){
             // the method returned true so it entails
             output = "YES: ";
-            // for each entailed symbol
-            for (int i=0;i<entailed.size();i++){
-                output += entailed.get(i)+", ";
+            // loop through all entailed symbols in reverse
+            for (int i=entailed.size()-1;i>=0;i--){
+                if (i==0)
+                    output += entailed.get(i);
+                else
+                    // no comma at the end
+                    output += entailed.get(i)+", ";
+
             }
-            output += ask;
         }
+        // no
         else{
             output = "NO";
         }
         return output;
     }
 
-    // FC algorithm
-    public boolean fcentails(){
-// loop through while there are unprocessed facts
+    // find if the agenda is entailed
+    // add more to the agenda
+    private boolean entails(){
+
         while(!agenda.isEmpty()){
-            // take the first item and process it
-            String p = agenda.remove(0);
-            // add to entailed
-            entailed.add(p);
-            // for each of the clauses....
-            for (int i=0;i<clauses.size();i++){
-                // .... that contain p in its premise
-                if (premiseContains(clauses.get(i),p)){
-                    Integer j = count.get(i);
-                    // reduce count : unknown elements in each premise
-                    count.set(i,--j);
-                    // all the elements in the premise are now known
-                    if (count.get(i)==0){
-                        // the conclusion has been proven so put into agenda
-                        String head = clauses.get(i).split("=>")[1];
-                        // have we just proven the 'ask'?
-                        if (head.equals(ask))
-                            return true;
-                        agenda.add(head);
+
+            String currentAgenda = agenda.remove(agenda.size()-1);
+            entailed.add(currentAgenda);
+
+            // if we have entailed the ask, we are done
+            // check if there are any facts we have not added to entails
+            if (currentAgenda.equals(ask)) {
+                for (String string: agenda) {
+                    if (facts.contains(string) && !entailed.contains(string)) {
+                        entailed.add(string);
+                    }
+                }
+                agenda.clear();
+                return true;
+            }
+
+                ArrayList<String> splitPremises = new ArrayList<>();
+                for (String clause : clauses) {
+
+                    if (clause.contains("=>")) {
+                        // split the clause
+                        String[] splitClause = clause.split("=>");
+
+                        // this clause entails current agenda
+                        if (splitClause[0].contains(currentAgenda.trim())) {
+
+                            if (splitClause[0].contains("&")) {
+                                String[] splitPremise = splitClause[0].split("&");
+                                for (String premise : splitPremise) {
+                                    splitPremises.add(premise.trim());
+                                }
+                            }
+                            else {
+                                if (!entailed.contains(splitClause[1])) {
+                                    agenda.add(splitClause[1].trim());
+                                }
+                            }
+                        }
+                    }
+                }
+                // if this isn't a fact and size is 0, there are no premises
+                if (splitPremises.size() != 0) {
+                    for (String premise : splitPremises) {
+                        if (!entailed.contains(premise.trim())) agenda.add(premise.trim());
                     }
                 }
             }
-        }
-        // if we arrive here then ask cannot be entailed
-        return false;
-    }
-
-
-
-
-    // method which sets up initial values for forward chaining
-// takes in string representing KB and seperates symbols and clauses, calculates count etc..
-    public static void init(String tell){
-        String[] sentences = tell.split(";");
-        for (int i=0;i<sentences.length;i++){
-
-            if (!sentences[i].contains("=>"))
-                // add facts to be processed
-                agenda.add(sentences[i]);
-            else{
-                // add sentences
-                clauses.add(sentences[i]);
-                count.add(sentences[i].split("&").length);
-            }
-        }
-    }
-
-
-    // method which checks if p appears in the premise of a given clause
-// input : clause, p
-// output : true if p is in the premise of clause
-    public static boolean premiseContains(String clause, String p){
-        String premise = clause.split("=>")[0];
-        String[] conjuncts = premise.split("&");
-        // check if p is in the premise
-        if (conjuncts.length==1)
-            return premise.equals(p);
-        else
-            return Arrays.asList(conjuncts).contains(p);
+        return true;
     }
 }
