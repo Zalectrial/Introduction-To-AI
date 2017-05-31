@@ -98,6 +98,7 @@ public class TruthTable {
 
         System.out.println();
 
+        // create the binary table based on number of unique symbols
         int count = 0;
         for (int i = 0 ; i != (1<<n) ; i++) {
             String s = Integer.toBinaryString(i);
