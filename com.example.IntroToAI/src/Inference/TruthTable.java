@@ -82,18 +82,19 @@ public class TruthTable {
 
     public void  generate(int n){
 
-        // print headers
-        for (String string: unique) {
-            System.out.print(string + " ");
-        }
-
-        for (String string: clauses) {
-            System.out.print(string + "     ");
-        }
-
-        for (String string: facts) {
-            System.out.print(string + "     ");
-        }
+        // debug table printing
+//        // print headers
+//        for (String string: unique) {
+//            System.out.print(string + " ");
+//        }
+//
+//        for (String string: clauses) {
+//            System.out.print(string + "     ");
+//        }
+//
+//        for (String string: facts) {
+//            System.out.print(string + "     ");
+//        }
 
         System.out.println();
 
@@ -103,11 +104,14 @@ public class TruthTable {
             while (s.length() != n) {
                 s = '0'+s;
             }
-            System.out.println(formatTable(s));
+            // debug table printing
+            // System.out.println(formatTable(s));
+            formatTable(s);
             string = "";
             count++;
         }
-        System.out.println(count);
+        // debug line count
+        //System.out.println(count);
     }
 
     private String formatTable(String s) {

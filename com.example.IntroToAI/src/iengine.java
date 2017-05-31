@@ -8,7 +8,7 @@ import Inference.ForwardChaining;
 import Inference.Method;
 import Inference.TruthTable;
 
-public class Main {
+public class iengine {
 
     public static void main (String[] args) {
 
